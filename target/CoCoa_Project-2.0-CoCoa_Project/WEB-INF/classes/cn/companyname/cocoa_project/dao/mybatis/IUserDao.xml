@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.companyname.cocoa_project.dao.mybatis.IUserDao">
+
+    <select id="listAllUser" resultType="UserManagerVO">
+select user_id            as userId,
+       user_name          as userName,
+       user_birth         as userBirth,
+       user_sex           as userSex,
+       user_age           as userAge,
+       user_mobile        as userTele,
+       user_email         as userEmail,
+       user_register_date as userRegisteredDate,
+       group_name         as userGroupName,
+       user_status        as userStatus,
+       city_name          as liveCity,
+       provincial_name    as liveProvincial
+        from users
+         inner join city c on users.user_city_id = c.city_id
+         inner join provincial p on c.provincial_id = p.provincial_id
+         inner join user_group ug on users.user_group_id = ug.group_id order by user_id
+    </select>
+
+    <delete id="deleteUserById">
+            delete from users where user_id = #{userId}
+    </delete>
+
+    <update id="updateUserStatusById">
+        update users set user_status = #{arg0} WHERE user_id = #{arg1};
+    </update>
+
+    <update id="updateUserGroupById">
+        update users set user_group_id = #{arg1} WHERE user_id = #{arg0};
+    </update>
+
+    <select id="listFuzzyUser" resultType="UserManagerVO">
+select user_id            as userId,
+       user_name          as userName,
+       user_birth         as userBirth,
+       user_sex           as userSex,
+       user_age           as userAge,
+       user_mobile        as userTele,
+       user_email         as userEmail,
+       user_register_date as userRegisteredDate,
+       group_name         as userGroupName,
+       user_status        as userStatus,
+       city_name          as liveCity,
+       provincial_name    as liveProvincial
+        from users
+         inner join city c on users.user_city_id = c.city_id
+         inner join provincial p on c.provincial_id = p.provincial_id
+         inner join user_group ug on users.user_group_id = ug.group_id where user_name like "%"#{userName}"%"
+        order by user_id
+    </select>
+</mapper>

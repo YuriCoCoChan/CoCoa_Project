@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.companyname.cocoa_project.dao.mybatis.IGoodsDao">
+    <sql id="normalGoods">
+                select good_name as goodName,
+        good_price as goodPrice,
+        good_img_src as goodImgSrc
+        from goods as info
+    inner join goods_imgs as img
+    on info.good_id = img.good_id
+    </sql>
+
+    <select id="listNewGoods" resultType="MainIndexImageVO">
+        <include refid="normalGoods"></include>
+        order by info.add_date desc limit 0,3;
+    </select>
+
+    <select id="listArtGoods" resultType="MainIndexImageVO">
+select good_name    as goodName,
+       good_price   as goodPrice,
+       good_desc    as goodDescription,
+       good_img_src as goodImgSrc
+from goods info
+         inner join goods_imgs img on info.good_id = img.good_id
+where status = 'PRIVATE' LIMIT 0,3;
+    </select>
+
+    <select id="listPopularGoods" resultType="MainIndexImageVO">
+        <include refid="normalGoods"></include>
+        order by info.views desc limit 0,6
+    </select>
+
+    <select id="listGoodsByRecommend" resultType="MainIndexImageVO">
+        <include refid="normalGoods"></include>
+        order by good_recommend desc, add_date desc  limit 0,5
+
+    </select>
+
+
+</mapper>

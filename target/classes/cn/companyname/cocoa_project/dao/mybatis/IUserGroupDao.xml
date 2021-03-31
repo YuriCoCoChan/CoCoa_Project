@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.companyname.cocoa_project.dao.mybatis.IUserGroupDao">
+
+    <select id="listUsersGroup" resultType="UserGroupPO">
+        select group_name as userGroupName, group_id as userGroupId from user_group
+    </select>
+
+</mapper>

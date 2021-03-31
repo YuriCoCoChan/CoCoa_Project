@@ -1,0 +1,7 @@
+body {
+    background-color: #353b48;
+}
+
+.my-table-hover tbody tr:hover {
+    color: orangered;
+}
